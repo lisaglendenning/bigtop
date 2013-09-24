@@ -116,7 +116,10 @@ ln -s $CONF_DIR $PREFIX/$LIB_DIR/conf
 # Copy in the /usr/bin/zookeeper-server wrapper
 install -d -m 0755 $PREFIX/$LIB_DIR/bin
 # FIXME: a workaround in preparation for Zookeeper 3.5
-echo '#!/bin/bash' > $BUILD_DIR/bin/zkServer-initialize.sh
+if [ ! -e $BUILD_DIR/bin/zkServer-initialize.sh ]
+then
+	echo '#!/bin/bash' > $BUILD_DIR/bin/zkServer-initialize.sh
+fi
 
 for i in zkServer.sh zkEnv.sh zkCli.sh zkCleanup.sh zkServer-initialize.sh
 	do cp $BUILD_DIR/bin/$i $PREFIX/$LIB_DIR/bin
